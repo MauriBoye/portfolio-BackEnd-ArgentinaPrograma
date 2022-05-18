@@ -9,4 +9,5 @@ public class PersonDTO {
     private String lastName;
     private String job;
     private String ubication;
+    private String description;
 }

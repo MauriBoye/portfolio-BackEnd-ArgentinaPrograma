@@ -2,10 +2,7 @@ package com.example.demo.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Data
@@ -18,6 +15,7 @@ public class Person {
     private String lastName;
     private String job;
     private String ubication;
+    private String description;
 
     @Override
     public String toString() {
@@ -27,6 +25,7 @@ public class Person {
                 ", lastName='" + lastName + '\'' +
                 ", job='" + job + '\'' +
                 ", ubication='" + ubication + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 
