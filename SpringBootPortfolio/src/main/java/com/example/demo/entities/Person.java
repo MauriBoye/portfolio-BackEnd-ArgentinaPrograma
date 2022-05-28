@@ -1,9 +1,11 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
@@ -15,7 +17,16 @@ public class Person {
     private String lastName;
     private String job;
     private String ubication;
+    @Column(columnDefinition="TEXT")
     private String description;
+    @Column(columnDefinition="TEXT")
+    private String profileUrl;
+    @Column(columnDefinition="TEXT")
+    private String bannerUrl;
+
+    @OneToMany(mappedBy = "person")
+    @JsonIgnore //Si este objeto viaja en formato JSON, podría entrar en un bucle infinito
+    private Set<Experience> experiences;
 
     @Override
     public String toString() {

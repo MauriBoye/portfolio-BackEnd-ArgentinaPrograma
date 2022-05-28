@@ -10,4 +10,6 @@ public class PersonDTO {
     private String job;
     private String ubication;
     private String description;
+    private String profileUrl;
+    private String bannerUrl;
 }
