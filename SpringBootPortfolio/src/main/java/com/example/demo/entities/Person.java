@@ -36,6 +36,10 @@ public class Person {
     @JsonIgnore //Si este objeto viaja en formato JSON, podría entrar en un bucle infinito
     private Set<Skill> skills;
 
+    @OneToMany(mappedBy = "person")
+    @JsonIgnore //Si este objeto viaja en formato JSON, podría entrar en un bucle infinito
+    private Set<Language> languages;
+
     @Override
     public String toString() {
         return "Person{" +
