@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.rmi.ServerException;
 import java.util.Collection;
 
+@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("api/education")
 public class EducationController {
@@ -17,28 +18,24 @@ public class EducationController {
     @Autowired
     private IEducationService educationService;
 
-    @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<EducationDTO> findById(@PathVariable("id") Integer id){
         EducationDTO educationDTO = educationService.findById(id);
         return new ResponseEntity<>(educationDTO, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PostMapping("/create")
     public ResponseEntity<EducationDTO> create(@RequestBody EducationDTO educationDTO){
         EducationDTO newEducationDTO = educationService.create(educationDTO);
         return new ResponseEntity<>(newEducationDTO, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteById(@PathVariable("id") Integer id){
         educationService.deleteById(id);
         return new ResponseEntity<>("Education deleted", HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PutMapping("/update")
     public ResponseEntity<EducationDTO> update(@RequestBody EducationDTO educationDTO)throws ServerException{
         if(educationService.findById(educationDTO.getId()) == null){
@@ -49,7 +46,6 @@ public class EducationController {
         }
     }
 
-    @CrossOrigin
     @GetMapping("/list")
     public Collection<EducationDTO> findAll() {
         return educationService.findAll();

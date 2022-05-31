@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.rmi.ServerException;
 import java.util.Collection;
-
+@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("api/skill")
 public class SkillController {
@@ -17,28 +17,24 @@ public class SkillController {
     @Autowired
     private ISkillService skillService;
 
-    @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<SkillDTO> findById(@PathVariable("id") Integer id){
         SkillDTO skillDTO = skillService.findById(id);
         return new ResponseEntity<>(skillDTO, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PostMapping("/create")
     public ResponseEntity<SkillDTO> create(@RequestBody SkillDTO skillDTO){
         SkillDTO newSkillDTO = skillService.create(skillDTO);
         return new ResponseEntity<>(newSkillDTO, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteById(@PathVariable("id") Integer id){
         skillService.deleteById(id);
         return new ResponseEntity<>("Skill deleted", HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PutMapping("/update")
     public ResponseEntity<SkillDTO> update(@RequestBody SkillDTO skillDTO) throws ServerException{
         if(skillService.findById(skillDTO.getId())==null){
@@ -49,7 +45,6 @@ public class SkillController {
         }
     }
 
-    @CrossOrigin
     @GetMapping("/list")
     public Collection<SkillDTO> findAll(){
         return skillService.findAll();

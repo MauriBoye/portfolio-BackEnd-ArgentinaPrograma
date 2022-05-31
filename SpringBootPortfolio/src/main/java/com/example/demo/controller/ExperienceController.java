@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.rmi.ServerException;
 import java.util.Collection;
 
+@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
 @RestController
 @RequestMapping("api/experience")
 public class ExperienceController {
@@ -18,28 +19,24 @@ public class ExperienceController {
     @Autowired
     private IExperienceService experienceService;
 
-    @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<ExperienceDTO> findById(@PathVariable("id") Integer id){
         ExperienceDTO experienceDTO = experienceService.findById(id);
         return new ResponseEntity<>(experienceDTO, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PostMapping("/create")
     public ResponseEntity<ExperienceDTO> create(@RequestBody ExperienceDTO experienceDTO){
         ExperienceDTO newExperienceDTO = experienceService.create(experienceDTO);
         return new ResponseEntity<>(newExperienceDTO, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteById(@PathVariable("id") Integer id){
         experienceService.deleteById(id);
         return new ResponseEntity<>("Experience deleted", HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PutMapping("/update")
     public ResponseEntity<ExperienceDTO> update(@RequestBody ExperienceDTO experienceDTO)throws ServerException {
         if(experienceService.findById(experienceDTO.getId()) == null){
@@ -50,7 +47,6 @@ public class ExperienceController {
         }
     }
 
-    @CrossOrigin
     @GetMapping("/list")
     public Collection<ExperienceDTO> findAll() {
         return experienceService.findAll();
